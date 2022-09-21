@@ -26,17 +26,17 @@ public class EcommController {
 	@Autowired
 	EcommService service;
 	
-	// Having only one controller create amiguity which result in boot errors
+	// Having only one controller creates ambiguity which result in boot errors
 	
-//	// Login - User Profile
+	// Login - User Profile
 //	@GetMapping("/{username}/{password}")
 //	public UserPojo findByUsernameAndPassword(@PathVariable("username") String username, @PathVariable("password") String password){
 //		
 //		return service.findByUsernameAndPassword(username, password);
 //		
 //	}
-//	
-//	// Register User
+	
+	// Register User
 //	@PostMapping("")
 //	public UserPojo registerUser(@Valid @RequestBody UserPojo newUser){
 //		return service.registerUser(newUser);
@@ -62,7 +62,7 @@ public class EcommController {
 //	public List<OrderItemPojo> getAllOrderItems(){
 //		return service.getAllOrderItems();
 //	}
-//
+//	
 //	@GetMapping("/{orderNo}")
 //	public OrderItemPojo getAOrderItem(@PathVariable("order_no") int orderNo) {
 //		return service.getAOrderItem(orderNo);

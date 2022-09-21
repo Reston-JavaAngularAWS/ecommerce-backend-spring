@@ -8,6 +8,7 @@ import com.ecommerce.maven.pojo.OrderPojo;
 import com.ecommerce.maven.pojo.ProductPojo;
 import com.ecommerce.maven.pojo.UserPojo;
 
+
 public interface EcommService {
 	
 	// Fetches user information
