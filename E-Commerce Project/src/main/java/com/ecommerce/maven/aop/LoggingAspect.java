@@ -1,4 +1,4 @@
-package com.ecommerce.aop;
+package com.ecommerce.maven.aop;
 
 //import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
