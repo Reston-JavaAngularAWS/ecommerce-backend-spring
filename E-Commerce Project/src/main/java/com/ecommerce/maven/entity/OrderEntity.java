@@ -1,7 +1,5 @@
 package com.ecommerce.maven.entity;
 
-
-
 import java.sql.Timestamp;
 
 
