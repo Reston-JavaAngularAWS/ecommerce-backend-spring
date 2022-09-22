@@ -20,8 +20,10 @@ import lombok.ToString;
 
 public class ProductPojo {
 	
+	private int sku;
+	
 	@NotNull
-	private Integer sku, productQuantity;
+	private Integer productQuantity;
 	@NotNull
 	private String productName, productImage;
 	@NotNull

@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -28,6 +27,7 @@ public class OrderItemEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	@Column(name = "items_id")
 	private int itemId;
 	
@@ -38,14 +38,13 @@ public class OrderItemEntity {
 	private Integer productQty;
 	
 	@Column(name = "product_price")
-	private Integer productPrice;
+	private Double productPrice;
 	
 //	@Column(name = "order_no")
-//	private Integer orderNo;
+//	private int orderNo;
 	
 	@ManyToOne
 	@JoinColumn(name="order_no")
 	private OrderEntity orderEntity;
-	
 	
 }

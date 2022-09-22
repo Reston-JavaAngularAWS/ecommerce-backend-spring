@@ -2,6 +2,8 @@ package com.ecommerce.maven.pojo;
 
 
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -25,9 +27,11 @@ public class OrderPojo {
 	@NotNull
 	private Integer userID;
 	@NotNull
-	private String date;
+	private String orderDate;
 	@NotNull
 	private String orderStatus;
 	
+//	// Products for a given order
+//	private List<ProductPojo> allProducts;
 	
 }

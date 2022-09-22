@@ -42,6 +42,10 @@ public class EcommServiceImpl implements EcommService {
 
 	}
 	
+	/*
+	 * Register
+	 * As a User, you can register a new account
+	 */
 	@Override
 	public UserPojo registerUser(UserPojo userPojo) {
 		UserEntity newUserEntity = new UserEntity();
@@ -52,7 +56,10 @@ public class EcommServiceImpl implements EcommService {
 		return userPojo;
 	}
 	
-
+	/*
+	 * Login
+	 * As a User or Admin, you can log into the application.
+	 */
 	@Override
 	public UserPojo findByUsernameAndPassword(String username, String password) {
 		Optional<UserEntity> optionalUserEntity = userDao.findByUsernameAndPassword(username, password);
@@ -64,6 +71,10 @@ public class EcommServiceImpl implements EcommService {
 		return fecthedUserPojo;
 	}
 	
+	/*
+	 * Display Products
+	 * As a User Guest or Admin, you can see a list of available products for you to add to your cart.
+	 */
 	@Override
 	public List<ProductPojo> getAllProducts() {
 		List<ProductEntity> allproductsEntity = productDao.findAll();
@@ -77,24 +88,35 @@ public class EcommServiceImpl implements EcommService {
 		return allProductsPojo;
 	}
 	
+	/*
+	 * Cart
+	 * As a User or Guest, you can add items to your cart that you will later purchase or remove from your cart.
+	 */
 	@Override
 	public OrderPojo addToCart(OrderPojo newOrder) {
 		
 		OrderEntity newOrderEntity = new OrderEntity();
+		// Copy collection of product pojo into 
+		
 		BeanUtils.copyProperties(newOrder, newOrderEntity);
+		
 		orderDao.saveAndFlush(newOrderEntity);
 		
 		newOrder.setOrderNo(newOrderEntity.getOrderNo());
 		
 		return newOrder;
 	}
-
+	
+	/*
+	 * View Previous Orders
+	 * As a User, I should be able to view a list of all my previous orders and access the details of each order.
+	 */
 	@Override
 	public OrderPojo findPreviousOrderById(int userId) {
 		Optional<OrderEntity> orderEntity = orderDao.findById(userId);
 		OrderPojo fetchedOrderPojo = null;
 		if(orderEntity.isPresent()) {
-			fetchedOrderPojo = new OrderPojo();;
+			fetchedOrderPojo = new OrderPojo();
 			BeanUtils.copyProperties(orderEntity.get(), fetchedOrderPojo);
 		}
 		return fetchedOrderPojo;
@@ -107,15 +129,17 @@ public class EcommServiceImpl implements EcommService {
 		BeanUtils.copyProperties(orderOptional.get(), orderPojo);
 		return orderPojo;
 	}
-
+	
+	
 	@Override
 	public List<OrderItemPojo> getAllOrderItems() {
 		List<OrderItemEntity> orderItemEntity = orderItemDao.findAll();
 		List<OrderItemPojo> orderItemPojo = new ArrayList<OrderItemPojo>();
 		
+		OrderItemPojo itemPojo = new OrderItemPojo();
+		OrderPojo orderPojo = new OrderPojo();
+		
 		orderItemEntity.forEach((eachEntity)->{
-			OrderItemPojo itemPojo = new OrderItemPojo();
-			OrderPojo orderPojo = new OrderPojo();
 			
 			BeanUtils.copyProperties(eachEntity, itemPojo);
 			
@@ -140,6 +164,20 @@ public class EcommServiceImpl implements EcommService {
 		BeanUtils.copyProperties(orderEntity.getOrderEntity(), orderPojo);
 		orderItemPojo.setOrderPojo(orderPojo);
 		return orderItemPojo;
+	}
+	
+	/*
+	 * [Optional] Create/Update Products
+	 * As an Admin, I should be able to create a new product to be displayed or update an existing product.
+	 */
+	@Override
+	public ProductPojo addProducts(ProductPojo newProduct) {
+		ProductEntity newProductEntity = new ProductEntity();
+		BeanUtils.copyProperties(newProduct, newProductEntity);
+		productDao.saveAndFlush(newProductEntity);
+		
+		newProduct.setSku(newProductEntity.getSku());
+		return newProduct;
 	}
 
 }
