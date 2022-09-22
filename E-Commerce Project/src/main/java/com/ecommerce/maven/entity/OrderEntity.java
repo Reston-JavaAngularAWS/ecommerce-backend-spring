@@ -2,12 +2,15 @@ package com.ecommerce.maven.entity;
 
 import java.sql.Timestamp;
 
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -36,10 +39,13 @@ public class OrderEntity {
 	private Integer userID;
 	
 	@Column(name = "order_date")
-	private Timestamp date;
+	private Timestamp orderDate;
 	
 	@Column(name = "order_status")
 	private String orderStatus;
 	
-
+	// Products will be registered in the order items table
+//	@ManyToMany
+//	@JoinTable(name = "order_items")
+//	private List<ProductEntity> allProducts;
 }

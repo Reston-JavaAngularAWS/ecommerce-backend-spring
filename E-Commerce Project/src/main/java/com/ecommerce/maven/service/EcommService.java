@@ -25,10 +25,13 @@ public interface EcommService {
 	// Display Products
 	List<ProductPojo> getAllProducts();
 	
-	
-	OrderPojo findPreviousOrderById(int userId);
+	// Add Products
+	ProductPojo addProducts(ProductPojo newProduct);
 	
 	List<OrderItemPojo> getAllOrderItems();
+	
+	
+	OrderPojo findPreviousOrderById(int userId);
 	
 	OrderPojo getAOrder(int userId);
 	

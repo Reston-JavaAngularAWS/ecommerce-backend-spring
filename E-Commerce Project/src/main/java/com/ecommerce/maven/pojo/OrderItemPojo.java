@@ -17,10 +17,10 @@ import lombok.ToString;
 public class OrderItemPojo {
 	
 	
-	private int itemId;
+	private int itemId, orderNo;
 	
 	@NotNull
-	private Integer orderNo, productSku, productQty;
+	private Integer productSku, productQty;
 	@NotNull
 	private Double productPrice;
 	

@@ -10,28 +10,29 @@ CREATE TABLE user_info(user_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 					   email VARCHAR(50) NOT NULL,
 					   user_type VARCHAR(50) NOT NULL);
 						  
-CREATE TABLE orders(order_no INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-								 user_id INT NOT NULL,
-								 order_date TIMESTAMP,
-								 order_price DECIMAL NOT NULL,
-								 CONSTRAINT fk_user
-      	            			 FOREIGN KEY(user_id) 
-	                			 REFERENCES user_info(user_id));
+CREATE TABLE orders(order_no SERIAL PRIMARY KEY,
+					user_id INT NOT NULL,
+					order_date TIMESTAMP,
+					order_status BOOLEAN DEFAULT FALSE,
+					CONSTRAINT fk_user
+      	            FOREIGN KEY(user_id) 
+	                REFERENCES user_info(user_id));
 	                			 
 	           
-CREATE TABLE order_items(items_id SERIAL PRIMARY KEY,
-						 order_no INTEGER NOT NULL,
+CREATE TABLE order_items(items_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+						 order_no SERIAL NOT NULL,
 						 product_sku INT NOT NULL,
 						 product_qty INT NOT NULL,
+				         product_price DOUBLE PRECISION NOT NULL,
 						 CONSTRAINT fk_order
       	                 FOREIGN KEY(order_no) 
 	                     REFERENCES orders(order_no));
 
-CREATE TABLE products(product_sku INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY
+CREATE TABLE products(product_sku INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                       product_name VARCHAR(50) NOT NULL,
                       product_image VARCHAR(50) NOT NULL,
                       product_quantity INT NOT NULL,
-                      product_price DECIMAL NOT NULL);
+                      product_price DOUBLE PRECISION NOT NULL);
 	
 
 
