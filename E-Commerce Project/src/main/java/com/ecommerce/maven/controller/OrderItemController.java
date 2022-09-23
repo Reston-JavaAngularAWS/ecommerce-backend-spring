@@ -21,15 +21,15 @@ public class OrderItemController {
 	@Autowired
 	EcommService service;
 	
-	@GetMapping("")
-	public List<OrderItemPojo> getAllOrderItems(){
-		return service.getAllOrderItems();
-	}
+//	@GetMapping("")
+//	public List<OrderItemPojo> getAllOrderItems(){
+//		return service.getAllOrderItems();
+//	}
 	
-	@GetMapping("/{orderNo}")
-	public OrderItemPojo getAOrderItem(@PathVariable("orderNo") int orderNo) {
-		return service.getAOrderItem(orderNo);
-	}
+//	@GetMapping("/{orderNo}")
+//	public OrderItemPojo getAOrderItem(@PathVariable("orderNo") int orderNo) {
+//		return service.getAOrderItem(orderNo);
+//	}
 
 }
 

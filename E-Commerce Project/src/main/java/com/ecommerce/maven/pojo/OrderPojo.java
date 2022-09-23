@@ -34,4 +34,6 @@ public class OrderPojo {
 //	// Products for a given order
 //	private List<ProductPojo> allProducts;
 	
+	private List<OrderItemPojo> orderItemPojo;
+	
 }

@@ -28,6 +28,9 @@ public class OrderItemEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
+	@Column(name = "order_no")
+	private int orderNo;
+	
 	@Column(name = "items_id")
 	private int itemId;
 	
@@ -39,12 +42,5 @@ public class OrderItemEntity {
 	
 	@Column(name = "product_price")
 	private Double productPrice;
-	
-//	@Column(name = "order_no")
-//	private int orderNo;
-	
-	@ManyToOne
-	@JoinColumn(name="order_no")
-	private OrderEntity orderEntity;
 	
 }

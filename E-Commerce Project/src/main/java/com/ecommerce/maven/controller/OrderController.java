@@ -2,6 +2,8 @@ package com.ecommerce.maven.controller;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,9 +31,9 @@ public class OrderController {
 	}
 	
 	// View Previous Order
-	@GetMapping("/{userId}")
-	OrderPojo findPreviousOrderById(@PathVariable("userId") int userId) {
-		return service.findPreviousOrderById(userId);
+	@GetMapping("/{userID}")
+	List<OrderPojo> findPreviousOrderById(@PathVariable("userID") int userID) {
+		return service.findPreviousOrdersById(userID);
 		
 	}
 
