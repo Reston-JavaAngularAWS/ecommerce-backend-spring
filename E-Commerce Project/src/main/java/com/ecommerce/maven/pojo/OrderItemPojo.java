@@ -20,11 +20,13 @@ public class OrderItemPojo {
 	private int itemId, orderNo;
 	
 	@NotNull
+	private String productName;
+	@NotNull
 	private Integer productSku, productQty;
 	@NotNull
 	private Double productPrice;
 	
-	
+	private ProductPojo products;
 	
 
 }

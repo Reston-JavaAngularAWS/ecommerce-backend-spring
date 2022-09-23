@@ -23,12 +23,6 @@ public class OrderController {
 	@Autowired
 	EcommService service;
 	
-	// Add to Cart
-	@PostMapping("")
-	OrderPojo addToCart() {
-		return null;
-		
-	}
 	
 	// View Previous Order
 	@GetMapping("/{userID}")
@@ -36,5 +30,11 @@ public class OrderController {
 		return service.findPreviousOrdersById(userID);
 		
 	}
+	
+	@PostMapping("")
+	public  OrderPojo updateCart(OrderPojo orderPojo){
+		return service.updateCart(orderPojo);
+	}
+
 
 }

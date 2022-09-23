@@ -26,7 +26,6 @@ public class ProductEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
 	@Column(name = "product_sku")
 	private int sku;
 	
@@ -42,4 +41,7 @@ public class ProductEntity {
 	@Column(name = "product_price")
 	private double productPrice;
 
+	
+	
+	
 }

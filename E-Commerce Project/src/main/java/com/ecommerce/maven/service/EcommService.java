@@ -19,8 +19,8 @@ public interface EcommService {
 	// Display Products
 	List<ProductPojo> getAllProducts();
 	
-	// Cart
-	OrderPojo addToCart(OrderPojo newOrder);
+	// updateCart
+	OrderPojo updateCart(OrderPojo orderPojo);
 	
 	// Checkout
 	OrderPojo checkOut(OrderPojo newOrder);

@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -46,5 +48,11 @@ public class OrderEntity {
 	@OneToMany
 	@JoinColumn(name="order_no")
 	private List<OrderItemEntity> orderItems = new ArrayList<OrderItemEntity>();
+	
+	@ManyToMany
+	@JoinTable(name="order_items", joinColumns = @JoinColumn(name = "order_no"), inverseJoinColumns = @JoinColumn(name = "product_sku"))
+	List<ProductEntity> allProducts;
+
+	
 	
 }

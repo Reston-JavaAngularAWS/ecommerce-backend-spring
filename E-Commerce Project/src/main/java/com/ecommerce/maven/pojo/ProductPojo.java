@@ -1,6 +1,6 @@
 package com.ecommerce.maven.pojo;
 
-import javax.validation.constraints.NotNull;
+
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -20,14 +20,17 @@ import lombok.ToString;
 
 public class ProductPojo {
 	
+
 	private int sku;
 	
-	@NotNull
-	private Integer productQuantity;
-	@NotNull
-	private String productName, productImage;
-	@NotNull
-	private Double productPrice;
+	private int productQuantity;
+	
+	private String productName; 
+	
+	private String productImage;
+
+	private double productPrice;
+
 	
 
 }
