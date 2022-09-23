@@ -1,5 +1,6 @@
 package com.ecommerce.maven.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,8 @@ import com.ecommerce.maven.pojo.UserPojo;
 
 @Service
 public class EcommServiceImpl implements EcommService {
+
+	LocalDate date = LocalDate.now();
 
 	@Autowired
 	UserDao userDao;
@@ -92,10 +95,24 @@ public class EcommServiceImpl implements EcommService {
 	 * As a User or Guest, you can add items to your cart that you will later purchase or remove from your cart.
 	 */
 	@Override
-	public OrderPojo addToCart(OrderPojo newOrder) {
+	public OrderPojo updateCart(OrderPojo orderPojo) {
+		OrderEntity fetchedOrderEntity = new OrderEntity();
+		BeanUtils.copyProperties(fetchedOrderEntity, orderPojo);
 
-		return newOrder;
+		List<ProductPojo> allProductsPojo = new ArrayList<ProductPojo>();
+		
+		orderPojo.getAllProducts().forEach((eachProductEntity) ->{
+			ProductPojo insertProductPojo = new ProductPojo();
+			BeanUtils.copyProperties(eachProductEntity, insertProductPojo);
+
+			allProductsPojo.add(insertProductPojo);
+		});
+		
+		orderPojo.setAllProducts(allProductsPojo);
+		return orderPojo;
+
 	}
+
 
 	/*
 	 * CheckOut
@@ -103,8 +120,7 @@ public class EcommServiceImpl implements EcommService {
 	 */
 	@Override
 	public OrderPojo checkOut(OrderPojo newOrder) {
-
-
+		
 		return newOrder;
 	}
 
@@ -116,15 +132,15 @@ public class EcommServiceImpl implements EcommService {
 	@Override
 	public List<OrderPojo> findPreviousOrdersById(int userId) {
 
-		// Issue: Find the order by ID but orderNo is 0
 		List<OrderEntity> orderEntity = orderDao.findByUserID(userId);
 		List<OrderPojo> fetchedOrderPojo = new ArrayList<OrderPojo>();
 
 		orderEntity.forEach((eachEntity)->{
 
 			OrderPojo orderPojo = new OrderPojo();
-
+			orderPojo.setOrderDate(date);
 			BeanUtils.copyProperties(eachEntity, orderPojo);
+
 			List<OrderItemPojo> fetchedOrderItemPojo = new ArrayList<OrderItemPojo>();
 			eachEntity.getOrderItems().forEach((eachItemEntity) -> {
 				OrderItemPojo itemPojo = new OrderItemPojo();
@@ -132,8 +148,7 @@ public class EcommServiceImpl implements EcommService {
 				fetchedOrderItemPojo.add(itemPojo);
 			});
 
-			// Adds order items into orderPojo
-			orderPojo.setOrderItemPojo(fetchedOrderItemPojo);
+			orderPojo.setOrderItems(fetchedOrderItemPojo);
 			fetchedOrderPojo.add(orderPojo);
 		});
 

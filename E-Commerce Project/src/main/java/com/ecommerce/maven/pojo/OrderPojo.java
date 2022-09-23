@@ -1,10 +1,8 @@
 package com.ecommerce.maven.pojo;
 
-
-
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -22,18 +20,20 @@ import lombok.ToString;
 
 public class OrderPojo {
 	
-	private int orderNo;
-	
-	@NotNull
+	private Integer orderNo;
+
 	private Integer userID;
-	@NotNull
-	private String orderDate;
-	@NotNull
+	
+
+	private LocalDate orderDate;
+	
+
 	private String orderStatus;
 	
-//	// Products for a given order
-//	private List<ProductPojo> allProducts;
+
+	private List<OrderItemPojo> orderItems = new ArrayList<OrderItemPojo>();
 	
-	private List<OrderItemPojo> orderItemPojo;
+	
+	private List<ProductPojo> allProducts;
 	
 }
