@@ -24,7 +24,7 @@ public class OrderItemPojo {
 	@NotNull
 	private Double productPrice;
 	
-	private OrderPojo orderPojo;
+	
 	
 
 }

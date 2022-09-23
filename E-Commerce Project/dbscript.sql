@@ -12,7 +12,7 @@ CREATE TABLE user_info(user_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 						  
 CREATE TABLE orders(order_no SERIAL PRIMARY KEY,
 					user_id INT NOT NULL,
-					order_date TIMESTAMP,
+					order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 					order_status BOOLEAN DEFAULT FALSE,
 					CONSTRAINT fk_user
       	            FOREIGN KEY(user_id) 
@@ -22,6 +22,7 @@ CREATE TABLE orders(order_no SERIAL PRIMARY KEY,
 CREATE TABLE order_items(items_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 						 order_no SERIAL NOT NULL,
 						 product_sku INT NOT NULL,
+						 product_name VARCHAR(50) NOT NULL,
 						 product_qty INT NOT NULL,
 				         product_price DOUBLE PRECISION NOT NULL,
 						 CONSTRAINT fk_order

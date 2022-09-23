@@ -1,7 +1,7 @@
 package com.ecommerce.maven.entity;
 
 import java.sql.Timestamp;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,8 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -31,11 +31,10 @@ public class OrderEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
 	@Column(name = "order_no")
 	private Integer orderNo;
 	
-	@Column(name = "user_id")
+	@Column(name = "user_Id")
 	private Integer userID;
 	
 	@Column(name = "order_date")
@@ -44,8 +43,8 @@ public class OrderEntity {
 	@Column(name = "order_status")
 	private String orderStatus;
 	
-	// Products will be registered in the order items table
-//	@ManyToMany
-//	@JoinTable(name = "order_items")
-//	private List<ProductEntity> allProducts;
+	@OneToMany
+	@JoinColumn(name="order_no")
+	private List<OrderItemEntity> orderItems = new ArrayList<OrderItemEntity>();
+	
 }
