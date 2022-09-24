@@ -5,7 +5,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +21,17 @@ public class UserController {
 	@Autowired
 	EcommService service;
 	
-	// Login -- User Profile
-	@GetMapping("/{username}/{password}")
-	public UserPojo findByUsernameAndPassword(@PathVariable("username") String username, @PathVariable("password") String password){
+	// Login 
+	@GetMapping("")
+	public UserPojo findByUsernameAndPassword(@Valid @RequestBody UserPojo userPojo){
+		return service.findByUsernameAndPassword(userPojo);
 		
-		return service.findByUsernameAndPassword(username, password);
+	}
+	
+	// User Profile
+	@GetMapping("")
+	public UserPojo findByID(@Valid @RequestBody UserPojo userPojo){
+		return service.findUserProfile(userPojo);
 		
 	}
 	

@@ -11,7 +11,7 @@ import com.ecommerce.maven.pojo.UserPojo;
 public interface EcommService {
 	
 	// Login
-	// No way to truly test Login on Postman
+	UserPojo findByUsernameAndPassword(UserPojo userPojo);
 	
 	// Register User
 	UserPojo registerUser(UserPojo userPojo);
@@ -29,7 +29,7 @@ public interface EcommService {
 	List<OrderPojo> findPreviousOrdersById(int userId);
 	
 	// User Profile
-	UserPojo findByUsernameAndPassword(String username, String Password);
+	UserPojo findUserProfile(UserPojo userPojo);
 	
 	// [Optional - Utility] Add Products
 	ProductPojo addProducts(ProductPojo newProduct);

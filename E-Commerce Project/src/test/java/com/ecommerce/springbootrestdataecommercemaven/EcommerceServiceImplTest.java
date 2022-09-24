@@ -16,7 +16,7 @@ public class EcommerceServiceImplTest {
 	
 	
 	@Test
-	public void testGetABookWithMockito() {
+	public void testfindUserMockito() {
 		
 		// define the mockito rule here
 		
