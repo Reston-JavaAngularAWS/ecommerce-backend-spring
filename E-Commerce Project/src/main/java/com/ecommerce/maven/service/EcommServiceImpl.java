@@ -63,14 +63,12 @@ public class EcommServiceImpl implements EcommService {
 	 * As a User or Admin, you can log into the application.
 	 */
 	@Override
-	public UserPojo findByUsernameAndPassword(String username, String password) {
-		Optional<UserEntity> optionalUserEntity = userDao.findByUsernameAndPassword(username, password);
-		UserPojo fecthedUserPojo = null;
+	public UserPojo findByUsernameAndPassword(UserPojo userPojo) {
+		Optional<UserEntity> optionalUserEntity = userDao.findByUsernameAndPassword(userPojo.getUsername(), userPojo.getPassword());
 		if (optionalUserEntity.isPresent()) {
-			fecthedUserPojo = new UserPojo();
-			BeanUtils.copyProperties(optionalUserEntity.get(), fecthedUserPojo);
+			BeanUtils.copyProperties(optionalUserEntity.get(), userPojo);
 		}
-		return fecthedUserPojo;
+		return userPojo;
 	}
 
 	/*
@@ -96,18 +94,18 @@ public class EcommServiceImpl implements EcommService {
 	 */
 	@Override
 	public OrderPojo updateCart(OrderPojo orderPojo) {
-		
+
 		OrderEntity insertOrderEntity = new OrderEntity();
 		BeanUtils.copyProperties(insertOrderEntity, orderPojo);
 
 		List<ProductPojo> allProductsPojo = new ArrayList<ProductPojo>();
-		
+
 		orderPojo.getAllProducts().forEach((eachProductEntity) ->{
 			ProductPojo insertProductPojo = new ProductPojo();
 			BeanUtils.copyProperties(eachProductEntity, insertProductPojo);
 			allProductsPojo.add(insertProductPojo);
 		});
-		
+
 		orderPojo.setAllProducts(allProductsPojo);
 		return orderPojo;
 
@@ -120,13 +118,13 @@ public class EcommServiceImpl implements EcommService {
 	 */
 	@Override
 	public OrderPojo checkOut(OrderPojo orderPojo) {
-		
+
 		OrderPojo newCompleteOrder = new OrderPojo();
 		newCompleteOrder.setUserID(orderPojo.getUserID());
 		newCompleteOrder.setOrderDate(date);
 		newCompleteOrder.setOrderStatus(true);
-		
-	
+
+
 		return orderPojo;
 	}
 
@@ -161,6 +159,21 @@ public class EcommServiceImpl implements EcommService {
 		return fetchedOrderPojo;
 
 	}
+	
+
+	/*
+	 * User Profile
+	 * As a User, I should be able to create and maintain a profile page.
+	 */
+	@Override
+	public UserPojo findUserProfile(UserPojo userPojo) {
+		Optional<UserEntity> optionalUserEntity = userDao.findById(userPojo.getUserID());
+		if (optionalUserEntity.isPresent()) {
+			BeanUtils.copyProperties(optionalUserEntity.get(), userPojo);
+		}
+		return userPojo;
+	}
+
 
 	/*
 	 * [Optional] Create/Update Products
@@ -175,19 +188,17 @@ public class EcommServiceImpl implements EcommService {
 		newProduct.setSku(newProductEntity.getSku());
 		return newProduct;
 	}
-	
+
 	/*
 	 * [Optional]  Remove Items from Cart
 	 *  As a [User|Admin], I should be able to remove items from my cart within the Cart View.
 	 */
 	@Override
 	public void deleteProduct(int sku) {
-		
 		productDao.deleteById(sku);
-		
+
 	}
-	
-	
+
 
 
 }
