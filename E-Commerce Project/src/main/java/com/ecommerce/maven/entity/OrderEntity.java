@@ -43,7 +43,7 @@ public class OrderEntity {
 	private Timestamp orderDate;
 	
 	@Column(name = "order_status")
-	private String orderStatus;
+	private Boolean orderStatus;
 	
 	@OneToMany
 	@JoinColumn(name="order_no")

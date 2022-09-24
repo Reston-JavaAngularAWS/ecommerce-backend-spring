@@ -32,7 +32,7 @@ public class UserController {
 	
 	// Register User
 	@PostMapping("")
-	public UserPojo addProducts(@Valid @RequestBody UserPojo newUser){
+	public UserPojo registerUser(@Valid @RequestBody UserPojo newUser){
 		return service.registerUser(newUser);
 	}
 	

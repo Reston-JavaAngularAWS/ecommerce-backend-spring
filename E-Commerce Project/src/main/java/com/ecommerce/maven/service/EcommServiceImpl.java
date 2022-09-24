@@ -96,15 +96,15 @@ public class EcommServiceImpl implements EcommService {
 	 */
 	@Override
 	public OrderPojo updateCart(OrderPojo orderPojo) {
-		OrderEntity fetchedOrderEntity = new OrderEntity();
-		BeanUtils.copyProperties(fetchedOrderEntity, orderPojo);
+		
+		OrderEntity insertOrderEntity = new OrderEntity();
+		BeanUtils.copyProperties(insertOrderEntity, orderPojo);
 
 		List<ProductPojo> allProductsPojo = new ArrayList<ProductPojo>();
 		
 		orderPojo.getAllProducts().forEach((eachProductEntity) ->{
 			ProductPojo insertProductPojo = new ProductPojo();
 			BeanUtils.copyProperties(eachProductEntity, insertProductPojo);
-
 			allProductsPojo.add(insertProductPojo);
 		});
 		
@@ -119,9 +119,15 @@ public class EcommServiceImpl implements EcommService {
 	 * As a User or Guest, I should be able to checkout with the items in my cart, purchase them and remove them from the inventory.
 	 */
 	@Override
-	public OrderPojo checkOut(OrderPojo newOrder) {
+	public OrderPojo checkOut(OrderPojo orderPojo) {
 		
-		return newOrder;
+		OrderPojo newCompleteOrder = new OrderPojo();
+		newCompleteOrder.setUserID(orderPojo.getUserID());
+		newCompleteOrder.setOrderDate(date);
+		newCompleteOrder.setOrderStatus(true);
+		
+	
+		return orderPojo;
 	}
 
 
@@ -169,6 +175,19 @@ public class EcommServiceImpl implements EcommService {
 		newProduct.setSku(newProductEntity.getSku());
 		return newProduct;
 	}
+	
+	/*
+	 * [Optional]  Remove Items from Cart
+	 *  As a [User|Admin], I should be able to remove items from my cart within the Cart View.
+	 */
+	@Override
+	public void deleteProduct(int sku) {
+		
+		productDao.deleteById(sku);
+		
+	}
+	
+	
 
 
 }
