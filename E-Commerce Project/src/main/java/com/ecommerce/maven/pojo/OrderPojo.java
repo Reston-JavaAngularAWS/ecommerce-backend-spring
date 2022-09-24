@@ -28,7 +28,7 @@ public class OrderPojo {
 	private LocalDate orderDate;
 	
 
-	private String orderStatus;
+	private Boolean orderStatus;
 	
 
 	private List<OrderItemPojo> orderItems = new ArrayList<OrderItemPojo>();

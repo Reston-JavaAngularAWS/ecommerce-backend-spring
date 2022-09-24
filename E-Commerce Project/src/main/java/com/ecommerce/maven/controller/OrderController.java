@@ -35,6 +35,12 @@ public class OrderController {
 	public  OrderPojo updateCart(OrderPojo orderPojo){
 		return service.updateCart(orderPojo);
 	}
+	
+	@PostMapping("")
+	public  OrderPojo checkOut(OrderPojo orderPojo){
+		return service.checkOut(orderPojo);
+	}
+	
 
 
 }
