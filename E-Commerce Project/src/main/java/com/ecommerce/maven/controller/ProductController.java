@@ -33,6 +33,7 @@ public class ProductController {
 	
 	
 	//Display Products
+	//http://localhost:8080/api/product
 	@GetMapping("")
 	public List<ProductPojo> getAllProducts(){
 		return service.getAllProducts();

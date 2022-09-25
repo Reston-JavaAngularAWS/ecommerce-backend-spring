@@ -36,10 +36,10 @@ public class OrderController {
 		return service.updateCart(orderPojo);
 	}
 	
-	@PutMapping("")
-	public  OrderPojo checkOut(OrderPojo orderPojo){
-		return service.checkOut(orderPojo);
-	}
+//	@PutMapping("")
+//	public  OrderPojo checkOut(int userId){
+//		return service.checkOut(userId);
+//	}
 	
 
 

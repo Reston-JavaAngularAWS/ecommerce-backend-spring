@@ -23,7 +23,7 @@ public interface EcommService {
 	OrderPojo updateCart(OrderPojo orderPojo);
 	
 	// Checkout
-	OrderPojo checkOut(OrderPojo orderPojo);
+	OrderPojo checkOut(int userId);
 	
 	// View Previous Orders
 	List<OrderPojo> findPreviousOrdersById(int userId);
@@ -35,7 +35,7 @@ public interface EcommService {
 	ProductPojo addProducts(ProductPojo newProduct);
 	
 	// [Optional - Utility] Remove Products
-	void deleteProduct(int sku);
+	void deleteProduct(int productSku);
 	
 
 }

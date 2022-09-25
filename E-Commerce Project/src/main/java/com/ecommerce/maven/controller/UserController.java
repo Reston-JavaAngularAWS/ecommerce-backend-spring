@@ -22,11 +22,11 @@ public class UserController {
 	EcommService service;
 	
 	// Login 
-	@GetMapping("")
-	public UserPojo findByUsernameAndPassword(@Valid @RequestBody UserPojo userPojo){
-		return service.findByUsernameAndPassword(userPojo);
-		
-	}
+//	@GetMapping("")
+//	public UserPojo findByUsernameAndPassword(@Valid @RequestBody UserPojo userPojo){
+//		return service.findByUsernameAndPassword(userPojo);
+//		
+//	}
 	
 	// User Profile
 	@GetMapping("")

@@ -80,10 +80,10 @@ public class EcommServiceImpl implements EcommService {
 		List<ProductEntity> allproductsEntity = productDao.findAll();
 		List<ProductPojo> allProductsPojo = new ArrayList<ProductPojo>();
 		allproductsEntity.forEach((eachEntity)->allProductsPojo.add(new ProductPojo(
-				eachEntity.getSku(), 
-				eachEntity.getProductQuantity(), 
+				eachEntity.getProductSku(), 
+				eachEntity.getProductName(), 
 				eachEntity.getProductImage(), 
-				eachEntity.getProductName(),
+				eachEntity.getProductQuantity(),
 				eachEntity.getProductPrice())));
 		return allProductsPojo;
 	}
@@ -117,15 +117,17 @@ public class EcommServiceImpl implements EcommService {
 	 * As a User or Guest, I should be able to checkout with the items in my cart, purchase them and remove them from the inventory.
 	 */
 	@Override
-	public OrderPojo checkOut(OrderPojo orderPojo) {
-
-		OrderPojo newCompleteOrder = new OrderPojo();
-		newCompleteOrder.setUserID(orderPojo.getUserID());
-		newCompleteOrder.setOrderDate(date);
-		newCompleteOrder.setOrderStatus(true);
-
-
-		return orderPojo;
+	public OrderPojo checkOut(int userId) {
+		List<OrderEntity> previousOrders = orderDao.findByUserID(userId);
+		OrderPojo orderToCheckOut = null;
+		for(int i = 0; i < previousOrders.size(); i++) {
+			if(previousOrders.get(i).getOrderStatus() == false){
+			BeanUtils.copyProperties(previousOrders.get(i), orderToCheckOut);
+			}
+		}
+		
+		return orderToCheckOut;
+		
 	}
 
 
@@ -185,7 +187,7 @@ public class EcommServiceImpl implements EcommService {
 		BeanUtils.copyProperties(newProduct, newProductEntity);
 		productDao.saveAndFlush(newProductEntity);
 
-		newProduct.setSku(newProductEntity.getSku());
+		newProduct.setProductSku(newProductEntity.getProductSku());
 		return newProduct;
 	}
 
@@ -194,8 +196,8 @@ public class EcommServiceImpl implements EcommService {
 	 *  As a [User|Admin], I should be able to remove items from my cart within the Cart View.
 	 */
 	@Override
-	public void deleteProduct(int sku) {
-		productDao.deleteById(sku);
+	public void deleteProduct(int productSku) {
+		productDao.deleteById(productSku);
 
 	}
 
