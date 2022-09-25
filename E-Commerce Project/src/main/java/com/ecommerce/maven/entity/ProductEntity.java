@@ -27,16 +27,16 @@ public class ProductEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "product_sku")
-	private int sku;
-	
-	@Column(name = "product_quantity")
-	private int productQuantity;
+	private int productSku;
 	
 	@Column(name = "product_name")
 	private String productName; 
 	
 	@Column(name = "product_image")
 	private String productImage;
+	
+	@Column(name = "product_quantity")
+	private int productQuantity;
 	
 	@Column(name = "product_price")
 	private double productPrice;

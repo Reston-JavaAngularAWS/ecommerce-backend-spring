@@ -11,7 +11,7 @@ import com.ecommerce.maven.entity.ProductEntity;
 public interface ProductDao extends JpaRepository<ProductEntity, Integer> {
 	
 	// Find order by Sku
-	List<ProductEntity> findBySku(int sku);
+	List<ProductEntity> findByProductSku(int productSku);
 
 
 }
