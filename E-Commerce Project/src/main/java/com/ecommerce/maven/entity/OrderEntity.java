@@ -1,6 +1,7 @@
 package com.ecommerce.maven.entity;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class OrderEntity {
 	private Integer userID;
 	
 	@Column(name = "order_date")
-	private Timestamp orderDate;
+	private LocalDateTime orderDate = LocalDateTime.now();
 	
 	@Column(name = "order_status")
 	private Boolean orderStatus;
@@ -52,7 +53,5 @@ public class OrderEntity {
 	@ManyToMany
 	@JoinTable(name="order_items", joinColumns = @JoinColumn(name = "order_no"), inverseJoinColumns = @JoinColumn(name = "product_sku"))
 	List<ProductEntity> allProducts;
-
-	
 	
 }

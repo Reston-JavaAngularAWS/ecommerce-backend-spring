@@ -15,28 +15,28 @@ import com.ecommerce.maven.service.EcommService;
 
 @CrossOrigin
 @RestController
-@RequestMapping("api/user")
+@RequestMapping("api/user")	//http://localhost:8080/api/user
 public class UserController {
 	
 	@Autowired
 	EcommService service;
 	
 	// Login 
-//	@GetMapping("")
-//	public UserPojo findByUsernameAndPassword(@Valid @RequestBody UserPojo userPojo){
-//		return service.findByUsernameAndPassword(userPojo);
-//		
-//	}
+	@GetMapping("login")
+	public UserPojo findByUsernameAndPassword(@Valid @RequestBody UserPojo userPojo){
+		return service.findByUsernameAndPassword(userPojo);
+		
+	}
 	
 	// User Profile
-	@GetMapping("")
+	@GetMapping("profile")
 	public UserPojo findByID(@Valid @RequestBody UserPojo userPojo){
 		return service.findUserProfile(userPojo);
 		
 	}
 	
 	// Register User
-	@PostMapping("")
+	@PostMapping("register")
 	public UserPojo registerUser(@Valid @RequestBody UserPojo newUser){
 		return service.registerUser(newUser);
 	}

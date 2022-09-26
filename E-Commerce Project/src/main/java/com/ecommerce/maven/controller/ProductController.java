@@ -20,25 +20,25 @@ import com.ecommerce.maven.service.EcommService;
 
 @CrossOrigin
 @RestController
-@RequestMapping("api/product")
+@RequestMapping("api/product") //http://localhost:8080/api/product
 public class ProductController {
 	
 	@Autowired
 	EcommService service;
 	
-	@PostMapping("")
+	//  Create/Update Products
+	@PostMapping("add")
 	public ProductPojo addProducts(@Valid @RequestBody ProductPojo newProduct){
 		return service.addProducts(newProduct);
 	}
 	
-	
-	//Display Products
-	//http://localhost:8080/api/product
-	@GetMapping("")
+	// Display Products
+	@GetMapping("getall")
 	public List<ProductPojo> getAllProducts(){
 		return service.getAllProducts();
 	}
 	
+	// Remove Items from Cart
 	@DeleteMapping("/{bsku}")
 	public void deleteProduct(@PathVariable("bsku") int sku) {
 		service.deleteProduct(sku);

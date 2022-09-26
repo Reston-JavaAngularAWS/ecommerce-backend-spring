@@ -33,15 +33,10 @@ public class OrderItemEntity {
 	
 	@Column(name = "product_sku")
 	private Integer productSku;
+
 	
-	@Column(name = "product_name")
-	private String productName;
-	
-	@Column(name = "product_qty")
-	private Integer productQty;
-	
-	@Column(name = "product_price")
-	private Double productPrice;
+
+
 	
 
 	

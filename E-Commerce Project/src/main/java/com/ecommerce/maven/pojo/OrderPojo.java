@@ -1,6 +1,7 @@
 package com.ecommerce.maven.pojo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class OrderPojo {
 	private Integer userID;
 	
 
-	private LocalDate orderDate;
+	private LocalDateTime orderDate;
 	
 
 	private Boolean orderStatus;
