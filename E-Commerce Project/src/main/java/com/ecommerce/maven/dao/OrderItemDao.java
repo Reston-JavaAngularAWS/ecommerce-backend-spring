@@ -8,5 +8,5 @@ import com.ecommerce.maven.entity.OrderItemEntity;
 @Repository
 public interface OrderItemDao extends JpaRepository<OrderItemEntity, Integer> {
 
-
+	
 }

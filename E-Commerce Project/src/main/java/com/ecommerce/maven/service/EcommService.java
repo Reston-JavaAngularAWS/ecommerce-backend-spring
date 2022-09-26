@@ -23,10 +23,10 @@ public interface EcommService {
 	OrderPojo updateCart(OrderPojo orderPojo);
 	
 	// Checkout
-	OrderPojo checkOut(int userId);
+	void checkOut(Integer userID);
 	
 	// View Previous Orders
-	List<OrderPojo> findPreviousOrdersById(int userId);
+	List<OrderPojo> findPreviousOrdersById(Integer userID);
 	
 	// User Profile
 	UserPojo findUserProfile(UserPojo userPojo);

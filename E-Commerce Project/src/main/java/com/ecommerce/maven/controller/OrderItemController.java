@@ -13,7 +13,7 @@ import com.ecommerce.maven.service.EcommService;
 
 @CrossOrigin
 @RestController
-@RequestMapping("api/orderitem")
+@RequestMapping("api/orderitem") //http://localhost:8080/api/orderitem
 public class OrderItemController {
 	
 	@Autowired

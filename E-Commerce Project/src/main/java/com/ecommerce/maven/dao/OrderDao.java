@@ -11,7 +11,9 @@ import com.ecommerce.maven.entity.OrderEntity;
 public interface OrderDao extends JpaRepository<OrderEntity,  Integer> {
 	
 	// Find an Order by UserID
-	List<OrderEntity> findByUserID(int userID);
 
+	List<OrderEntity> findByUserID(Integer userId);
+	
+	OrderEntity findByUserIDAndOrderStatus(Integer userId, Boolean orderStatus);
 
 }

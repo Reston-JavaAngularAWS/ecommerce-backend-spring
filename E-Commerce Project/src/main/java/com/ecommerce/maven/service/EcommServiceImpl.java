@@ -1,6 +1,7 @@
 package com.ecommerce.maven.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +15,7 @@ import com.ecommerce.maven.dao.OrderItemDao;
 import com.ecommerce.maven.dao.ProductDao;
 import com.ecommerce.maven.dao.UserDao;
 import com.ecommerce.maven.entity.OrderEntity;
+import com.ecommerce.maven.entity.OrderItemEntity;
 import com.ecommerce.maven.entity.ProductEntity;
 import com.ecommerce.maven.entity.UserEntity;
 import com.ecommerce.maven.pojo.OrderItemPojo;
@@ -24,7 +26,7 @@ import com.ecommerce.maven.pojo.UserPojo;
 @Service
 public class EcommServiceImpl implements EcommService {
 
-	LocalDate date = LocalDate.now();
+	LocalDateTime date = LocalDateTime.now();
 
 	@Autowired
 	UserDao userDao;
@@ -91,22 +93,39 @@ public class EcommServiceImpl implements EcommService {
 	/*
 	 * Cart
 	 * As a User or Guest, you can add items to your cart that you will later purchase or remove from your cart.
+	 * Steps:
+	 * 1. Fetch record from Order table with a UserID and orderStatus as false.
+	 * 	-> If it fetches a record it means we have an open cart -> Update query: PK = 0 (save method)
+	 * 	-> If it does not fetch, then it is a new record (first item entering into a cart) -> Insert query: PK = Generated (save method)
 	 */
 	@Override
 	public OrderPojo updateCart(OrderPojo orderPojo) {
 
-		OrderEntity insertOrderEntity = new OrderEntity();
-		BeanUtils.copyProperties(insertOrderEntity, orderPojo);
+		OrderEntity orderEntity = orderDao.findByUserIDAndOrderStatus(orderPojo.getUserID(), false);	
 
-		List<ProductPojo> allProductsPojo = new ArrayList<ProductPojo>();
+		if(orderEntity != null) {
+			OrderItemEntity orderItemEntity = new OrderItemEntity();
+			orderItemEntity.setOrderNo(orderEntity.getOrderNo());
+			orderItemEntity.setProductSku(orderPojo.getAllProducts().get(0).getProductSku());
+			orderItemDao.save(orderItemEntity);
+		}else{
+			ProductEntity productEntity = new ProductEntity();
+			productEntity.setProductSku(orderPojo.getAllProducts().get(0).getProductSku());
+			productEntity.setProductName(orderPojo.getAllProducts().get(0).getProductName());
+			productEntity.setProductImage(orderPojo.getAllProducts().get(0).getProductImage());
+			productEntity.setProductQuantity(orderPojo.getAllProducts().get(0).getProductQuantity());
+			productEntity.setProductPrice(orderPojo.getAllProducts().get(0).getProductPrice());
+			List<ProductEntity> allProducts = new ArrayList<ProductEntity>();
+			allProducts.add(productEntity);
+			OrderEntity order = new OrderEntity();
+			order.setUserID(orderPojo.getUserID());
+			order.setOrderStatus(false);
+			order.setAllProducts(allProducts);
+			orderDao.saveAndFlush(order);
+			orderPojo.setOrderNo(order.getOrderNo());
+			orderPojo.setOrderDate(order.getOrderDate());
+		}
 
-		orderPojo.getAllProducts().forEach((eachProductEntity) ->{
-			ProductPojo insertProductPojo = new ProductPojo();
-			BeanUtils.copyProperties(eachProductEntity, insertProductPojo);
-			allProductsPojo.add(insertProductPojo);
-		});
-
-		orderPojo.setAllProducts(allProductsPojo);
 		return orderPojo;
 
 	}
@@ -115,31 +134,30 @@ public class EcommServiceImpl implements EcommService {
 	/*
 	 * CheckOut
 	 * As a User or Guest, I should be able to checkout with the items in my cart, purchase them and remove them from the inventory.
+	 * 1. Have save method to set to true
 	 */
 	@Override
-	public OrderPojo checkOut(int userId) {
-		List<OrderEntity> previousOrders = orderDao.findByUserID(userId);
-		OrderPojo orderToCheckOut = null;
-		for(int i = 0; i < previousOrders.size(); i++) {
-			if(previousOrders.get(i).getOrderStatus() == false){
-			BeanUtils.copyProperties(previousOrders.get(i), orderToCheckOut);
-			}
-		}
-		
-		return orderToCheckOut;
-		
+	public void checkOut(Integer userID) {
+		System.out.println(userID);
+		OrderEntity orderEntity = orderDao.findByUserIDAndOrderStatus(userID, false);
+		System.out.println(orderEntity);
+		orderEntity.setOrderStatus(true);
+		orderDao.save(orderEntity);
+
 	}
 
 
 	/*
 	 * View Previous Orders
 	 * As a User, I should be able to view a list of all my previous orders and access the details of each order.
+	 * 1. Check for checkedout orders 
 	 */
 	@Override
-	public List<OrderPojo> findPreviousOrdersById(int userId) {
+	public List<OrderPojo> findPreviousOrdersById(Integer userID) {
 
-		List<OrderEntity> orderEntity = orderDao.findByUserID(userId);
+		List<OrderEntity> orderEntity = orderDao.findByUserID(userID);
 		List<OrderPojo> fetchedOrderPojo = new ArrayList<OrderPojo>();
+
 
 		orderEntity.forEach((eachEntity)->{
 
@@ -147,21 +165,26 @@ public class EcommServiceImpl implements EcommService {
 			orderPojo.setOrderDate(date);
 			BeanUtils.copyProperties(eachEntity, orderPojo);
 
+
 			List<OrderItemPojo> fetchedOrderItemPojo = new ArrayList<OrderItemPojo>();
 			eachEntity.getOrderItems().forEach((eachItemEntity) -> {
 				OrderItemPojo itemPojo = new OrderItemPojo();
 				BeanUtils.copyProperties(eachItemEntity, itemPojo);
 				fetchedOrderItemPojo.add(itemPojo);
 			});
-
-			orderPojo.setOrderItems(fetchedOrderItemPojo);
-			fetchedOrderPojo.add(orderPojo);
+			
+			// Check if it is a previously checked out order
+			if(orderPojo.getOrderStatus() != false) {
+				orderPojo.setOrderItems(fetchedOrderItemPojo);
+				fetchedOrderPojo.add(orderPojo);	
+			}
 		});
+
 
 		return fetchedOrderPojo;
 
 	}
-	
+
 
 	/*
 	 * User Profile

@@ -1,5 +1,9 @@
 package com.ecommerce.maven.pojo;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -17,14 +21,15 @@ import lombok.ToString;
 public class OrderItemPojo {
 	
 	
-	private int itemId, orderNo;
+
+	private int itemId;
 	
-	@NotNull
-	private String productName;
-	@NotNull
-	private Integer productSku, productQty;
-	@NotNull
-	private Double productPrice;
+
+	private int orderNo;
+	
+
+	private Integer productSku;
+
 	
 
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,30 +18,32 @@ import com.ecommerce.maven.service.EcommService;
 
 @CrossOrigin
 @RestController
-@RequestMapping("api/order")
+@RequestMapping("api/order") //http://localhost:8080/api/order
 public class OrderController {
-	
+
 	@Autowired
 	EcommService service;
-	
-	
+
+
 	// View Previous Order
 	@GetMapping("/{userID}")
-	List<OrderPojo> findPreviousOrderById(@PathVariable("userID") int userID) {
+	List<OrderPojo> findPreviousOrderById(@PathVariable("userID") Integer userID) {
 		return service.findPreviousOrdersById(userID);
-		
+
 	}
-	
-	@PutMapping("")
-	public  OrderPojo updateCart(OrderPojo orderPojo){
+
+	// Cart
+	@PutMapping("update")
+	public  OrderPojo updateCart(@RequestBody OrderPojo orderPojo){
 		return service.updateCart(orderPojo);
 	}
-	
-//	@PutMapping("")
-//	public  OrderPojo checkOut(int userId){
-//		return service.checkOut(userId);
-//	}
-	
+
+	// Checkout
+	@PutMapping("checkout/{userID}")
+	public  void checkOut(@PathVariable("userID") Integer userID){
+		service.checkOut(userID);
+	}
+
 
 
 }
