@@ -17,7 +17,9 @@ import lombok.ToString;
 @EqualsAndHashCode
 
 public class UserPojo {
-	private Integer userID;
+	
+	private int userID;
+	
 	@NotNull
 	private String username;
 	@NotNull

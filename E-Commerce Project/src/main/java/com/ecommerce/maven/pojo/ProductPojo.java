@@ -22,7 +22,6 @@ import lombok.ToString;
 
 public class ProductPojo {
 	
-
 	private int productSku;
 	
 	@NotNull
@@ -31,10 +30,11 @@ public class ProductPojo {
 	@NotNull
 	private String productImage;
 	
-	private int productQuantity;
+	@NotNull
+	private Integer productQuantity;
 	
 	@NotNull
-	private double productPrice;
+	private Double productPrice;
 
 	
 

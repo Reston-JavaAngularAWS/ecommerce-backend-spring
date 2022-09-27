@@ -29,15 +29,9 @@ public class OrderItemEntity {
 	private int itemId;
 	
 	@Column(name = "order_no")
-	private int orderNo;
+	private Integer orderNo;
 	
 	@Column(name = "product_sku")
 	private Integer productSku;
 
-	
-
-
-	
-
-	
 }

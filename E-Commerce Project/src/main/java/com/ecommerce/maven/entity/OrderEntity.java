@@ -1,6 +1,5 @@
 package com.ecommerce.maven.entity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,7 @@ public class OrderEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_no")
-	private Integer orderNo;
+	private int orderNo;
 	
 	@Column(name = "user_Id")
 	private Integer userID;
