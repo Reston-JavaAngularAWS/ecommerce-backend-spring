@@ -36,10 +36,10 @@ public class ProductEntity {
 	private String productImage;
 	
 	@Column(name = "product_quantity")
-	private int productQuantity;
+	private Integer productQuantity;
 	
 	@Column(name = "product_price")
-	private double productPrice;
+	private Double productPrice;
 
 	
 	

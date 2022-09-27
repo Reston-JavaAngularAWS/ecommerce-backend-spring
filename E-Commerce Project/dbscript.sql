@@ -22,16 +22,13 @@ CREATE TABLE orders(order_no SERIAL PRIMARY KEY,
 CREATE TABLE order_items(items_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 						 order_no SERIAL NOT NULL,
 						 product_sku INT NOT NULL,
-						 product_name VARCHAR(50) NOT NULL,
-						 product_qty INT NOT NULL,
-				         product_price DOUBLE PRECISION NOT NULL,
 						 CONSTRAINT fk_order
       	                 FOREIGN KEY(order_no) 
 	                     REFERENCES orders(order_no));
 
 CREATE TABLE products(product_sku INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                       product_name VARCHAR(50) NOT NULL,
-                      product_image VARCHAR(50) NOT NULL,
+                      product_image VARCHAR(500) NOT NULL,
                       product_quantity INT NOT NULL,
                       product_price DOUBLE PRECISION NOT NULL);
 	

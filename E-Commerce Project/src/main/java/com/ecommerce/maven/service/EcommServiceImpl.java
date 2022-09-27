@@ -1,6 +1,5 @@
 package com.ecommerce.maven.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -138,9 +137,7 @@ public class EcommServiceImpl implements EcommService {
 	 */
 	@Override
 	public void checkOut(Integer userID) {
-		System.out.println(userID);
 		OrderEntity orderEntity = orderDao.findByUserIDAndOrderStatus(userID, false);
-		System.out.println(orderEntity);
 		orderEntity.setOrderStatus(true);
 		orderDao.save(orderEntity);
 
@@ -150,7 +147,7 @@ public class EcommServiceImpl implements EcommService {
 	/*
 	 * View Previous Orders
 	 * As a User, I should be able to view a list of all my previous orders and access the details of each order.
-	 * 1. Check for checkedout orders 
+	 * 1. Check for checkout orders 
 	 */
 	@Override
 	public List<OrderPojo> findPreviousOrdersById(Integer userID) {
@@ -162,24 +159,21 @@ public class EcommServiceImpl implements EcommService {
 		orderEntity.forEach((eachEntity)->{
 
 			OrderPojo orderPojo = new OrderPojo();
-			orderPojo.setOrderDate(date);
 			BeanUtils.copyProperties(eachEntity, orderPojo);
-
-
-			List<OrderItemPojo> fetchedOrderItemPojo = new ArrayList<OrderItemPojo>();
-			eachEntity.getOrderItems().forEach((eachItemEntity) -> {
-				OrderItemPojo itemPojo = new OrderItemPojo();
-				BeanUtils.copyProperties(eachItemEntity, itemPojo);
-				fetchedOrderItemPojo.add(itemPojo);
-			});
 			
 			// Check if it is a previously checked out order
 			if(orderPojo.getOrderStatus() != false) {
+				List<OrderItemPojo> fetchedOrderItemPojo = new ArrayList<OrderItemPojo>();
+				eachEntity.getOrderItems().forEach((eachItemEntity) -> {
+					OrderItemPojo itemPojo = new OrderItemPojo();
+					BeanUtils.copyProperties(eachItemEntity, itemPojo);
+					fetchedOrderItemPojo.add(itemPojo);
+				});
+				
 				orderPojo.setOrderItems(fetchedOrderItemPojo);
 				fetchedOrderPojo.add(orderPojo);	
 			}
 		});
-
 
 		return fetchedOrderPojo;
 

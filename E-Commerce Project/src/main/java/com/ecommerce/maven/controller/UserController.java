@@ -4,8 +4,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,15 +22,15 @@ public class UserController {
 	EcommService service;
 	
 	// Login 
-	@GetMapping("login")
-	public UserPojo findByUsernameAndPassword(@Valid @RequestBody UserPojo userPojo){
+	@PutMapping("login")
+	public UserPojo findByUsernameAndPassword(@RequestBody UserPojo userPojo){
 		return service.findByUsernameAndPassword(userPojo);
 		
 	}
 	
 	// User Profile
-	@GetMapping("profile")
-	public UserPojo findByID(@Valid @RequestBody UserPojo userPojo){
+	@PutMapping("profile")
+	public UserPojo findByID( @RequestBody UserPojo userPojo){
 		return service.findUserProfile(userPojo);
 		
 	}
